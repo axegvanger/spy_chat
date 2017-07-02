@@ -1,3 +1,9 @@
+#Impor termcolor
+import sys
+from termcolor import colored, cprint
+
+
+
 #Import Snoopdetails file
 from snoopdetails import snoop, Snoop, ChatMessage, friends
 
@@ -12,7 +18,7 @@ from datetime import datetime
 
 STATUS_MESSAGES = ['My first SNOOPCHAT Status', 'SNOOPCHAT is Awesome App', 'I Enjoyed alot on SNOOPCHAT'] #STATUS MESSAGES LIST
 
-print'Hello, Welcome to SNOOPCHAT '
+cprint('Hello, Welcome to SNOOPCHAT!', 'blue', 'on_green')
 
 
 question = "Do you want to continue as " + snoop.salutation + " " + snoop.name + " (Y/N)? "
@@ -59,7 +65,8 @@ def add_status():  # Add your status
     if updated_status_message:
         print 'Your updated status message is: %s' % (updated_status_message)
     else:
-        print 'You current don\'t have a status update'
+
+        cprint('You current don\'t have a status update','white', 'on_blue')
 
     return updated_status_message
 
@@ -86,7 +93,9 @@ def add_friend():          #Creating Add friend function
 
         print 'Friend is Added!'     #Friend is being Added
     else:
-        print 'Invalid Details. Snoop can not be added with the details you provided'    #Invalid Information of SNOOP-FRIEND
+
+        cprint('Invalid Details. Snoop can not be added with the details you provided', 'red', attrs=['reverse', 'blink']) #Invalid Information of SNOOP-FRIEND
+
 
     return len(friends)   #return length of the function named friends
 
@@ -123,7 +132,7 @@ def send_message():  # Function for send any text to your friend
 
     friends[friend_choice].chats.append(new_chat)  # append your messsage with your selected friend
 
-    print "Now your secret message image is ready"
+    cprint("Now your secret message image is ready",'blue', attrs=['reverse', 'blink'])
 
 
 
@@ -140,7 +149,7 @@ def read_message():  # function for reading the secret message
 
     friends[sender].chats.append(new_chat)
 
-    print "Now your secret message has been saved"
+    cprint("Now your secret message has been saved", 'green', attrs=['reverse', 'blink'])
 
 
 
@@ -217,4 +226,5 @@ else:
 
         start_chat(snoop)
     else:
-        print 'Please add a valid snoop name'
+
+        cprint('Please add a valid snoop name', 'red', attrs=['reverse', 'blink'])
