@@ -1,12 +1,14 @@
-#Impor termcolor
+
+#Import termcolor
 import sys
 from termcolor import colored, cprint
 
 
-
-#Import Snoopdetails file
+#Import Snoopdetails files
 from snoopdetails import snoop, Snoop, ChatMessage, friends
 
+
+colored("how r u", 'red')
 
 #Import Steganography Library
 from steganography.steganography import Steganography
@@ -18,10 +20,12 @@ from datetime import datetime
 
 STATUS_MESSAGES = ['My first SNOOPCHAT Status', 'SNOOPCHAT is Awesome App', 'I Enjoyed alot on SNOOPCHAT'] #STATUS MESSAGES LIST
 
+words = ['SOS','sos','HELP','help', 'SAVE','save']
+
 cprint('Hello, Welcome to SNOOPCHAT!', 'blue', 'on_green')
 
 
-question = "Do you want to continue as " + snoop.salutation + " " + snoop.name + " (Y/N)? "
+question = colored("Do you want to continue as ",'blue') + colored(snoop.salutation,'red') + " " + colored(snoop.name,'red') + " (Y/N)? "
 existing = raw_input(question)
 
 
@@ -33,9 +37,9 @@ def add_status():  # Add your status
 
         print 'Your current status message is %s \n' % (snoop.current_status_message) # Add Your current status
     else:
-        print 'You don\'t have any status message currently \n'
+        print colored('You don\'t have any status message currently \n','red')
 
-    default = raw_input("Do you want to select from the older status (y/n)? ")
+    default = raw_input(colored("Do you want to select from the older status (y/n)? ",'blue'))
 
     if default.upper() == "N":
         new_status_message = raw_input("What status message do you want to set? ")
@@ -128,6 +132,11 @@ def send_message():  # Function for send any text to your friend
     text = raw_input("What do you want to say? ")
     Steganography.encode(original_image, output_path, text)  #encoding of your image with your secret message
 
+    temp = text.split(' ')
+    for i in words:
+        if i in temp:
+            temp[temp.index(i)] = colored('i m in danger')
+    text = str.join(' ', temp)
     new_chat = ChatMessage(text,True)
 
     friends[friend_choice].chats.append(new_chat)  # append your messsage with your selected friend
@@ -144,6 +153,16 @@ def read_message():  # function for reading the secret message
     output_path = raw_input("What is the name of the file?")
 
     secret_text = Steganography.decode(output_path)  #decoding by Steganography
+    secret_text = str(secret_text)
+    if secret_text == 'None':
+        print colored("No secret msg")
+    else:
+        temp = secret_text.split(' ')
+        for i in words:
+            if i in temp:
+                temp[temp.index(i)] = colored('i m in danger')
+        secret_text = str.join(' ', temp)
+
 
     new_chat = ChatMessage(secret_text,False)
 
@@ -162,9 +181,11 @@ def read_chat_history():  # Chat history function
 
     for chat in friends[read].chats:  # using for loop for reading the chats
         if chat.sent_by_me:
-            print '[%s] %s: %s' % (chat.time.strftime("%d %B %Y"), 'You said:', chat.message)
+            #print '[%s] %s: %s' % (chat.time.strftime("%d %B %Y"), 'You said:', chat.message)
+            print 'at',chat.time,"you said",chat.message
         else:
-            print '[%s] %s said: %s' % (chat.time.strftime("%d %B %Y"), friends[read].name, chat.message)
+            #print '[%s] %s said: %s' % (chat.time.strftime("%d %B %Y"), friends[read].name, chat.message)
+            print 'at', chat.time, "your friend said", chat.message
 
 
 
