@@ -1,4 +1,3 @@
-
 #Import termcolor
 import sys
 from termcolor import colored, cprint
@@ -22,7 +21,7 @@ STATUS_MESSAGES = ['My first SNOOPCHAT Status', 'SNOOPCHAT is Awesome App', 'I E
 
 words = ['SOS','sos','HELP','help', 'SAVE','save']
 
-cprint('Hello, Welcome to SNOOPCHAT!', 'blue', 'on_green')
+cprint('Hello, Welcome to SNOOPCHAT!', 'green')
 
 
 question = colored("Do you want to continue as ",'blue') + colored(snoop.salutation,'red') + " " + colored(snoop.name,'red') + " (Y/N)? "
@@ -42,7 +41,7 @@ def add_status():  # Add your status
     default = raw_input(colored("Do you want to select from the older status (y/n)? ",'blue'))
 
     if default.upper() == "N":
-        new_status_message = raw_input("What status message do you want to set? ")
+        new_status_message = raw_input(colored("What status message do you want to set? ", 'blue'))
 
 
         if len(new_status_message) > 0:
@@ -57,20 +56,21 @@ def add_status():  # Add your status
             print '%d. %s' % (item_position, message)
             item_position = item_position + 1
 
-        message_selection = int(raw_input("\nChoose from the above messages "))  # select your status from the previous ones
+        message_selection = int(raw_input(colored("\nChoose from the above messages ",'blue')))  # select your status from the previous ones
 
 
         if len(STATUS_MESSAGES) >= message_selection:
             updated_status_message = STATUS_MESSAGES[message_selection - 1]
 
     else:
-        print 'Invalid Option Press either y or n.'  # INVALID OPTION
+
+        print colored('Invalid Option Press either y or n.', 'red') # INVALID OPTION
 
     if updated_status_message:
         print 'Your updated status message is: %s' % (updated_status_message)
     else:
 
-        cprint('You current don\'t have a status update','white', 'on_blue')
+        print colored('You current don\'t have a status update','red')
 
     return updated_status_message
 
@@ -80,25 +80,25 @@ def add_friend():          #Creating Add friend function
 
     new_friend = Snoop('','',0,0.0)
 
-    new_friend.name = raw_input("Add your Friend's name: ")   #Ask friend's name
-    new_friend.salutation = raw_input("Add your friends's salutaion Mr. or Ms.?: ")   #Ask friend's salutation
+    new_friend.name = raw_input(colored("Add your Friend's name: ", 'blue'))   #Ask friend's name
+    new_friend.salutation = raw_input(colored("Add your friends's salutaion Mr. or Ms.?: ",'blue'))   #Ask friend's salutation
 
     new_friend.name = new_friend.salutation + " " + new_friend.name
 
-    new_friend.age = raw_input("Enter friend's Age?")    #Friend's age
+    new_friend.age = raw_input(colored("Enter friend's Age?", 'blue'))    #Friend's age
     new_friend.age = int(new_friend.age)
 
-    new_friend.rating = raw_input("Enter Friend's Rating?")
+    new_friend.rating = raw_input(colored("Enter Friend's Rating?", 'blue'))
     new_friend.rating = float(new_friend.rating)
 
     if len(new_friend.name) > 0 and new_friend.age > 12 and new_friend.rating >= snoop.rating:
 
         friends.append(new_friend) # Append new friend details
 
-        print 'Friend is Added!'     #Friend is being Added
+        print colored('Friend is Added!', 'green')    #Friend is being Added
     else:
 
-        cprint('Invalid Details. Snoop can not be added with the details you provided', 'red', attrs=['reverse', 'blink']) #Invalid Information of SNOOP-FRIEND
+        print colored('Invalid Details. Snoop can not be added with the details you provided', 'red') #Invalid Information of SNOOP-FRIEND
 
 
     return len(friends)   #return length of the function named friends
@@ -114,7 +114,7 @@ def select_a_friend():    #Creating a function for selecting a friend of your ch
         print '%d. %s %s aged %d with rating %.2f is online' % (item +1, friend.salutation, friend.name, friend.age, friend.rating)
         item = item + 1
 
-    friend_choice = raw_input("Select a friend of your choice")
+    friend_choice = raw_input(colored("Select a friend of your choice",'blue'))
 
     friend_choice_position = int(friend_choice) - 1
 
@@ -127,9 +127,9 @@ def send_message():  # Function for send any text to your friend
 
     friend_choice = select_a_friend()
 
-    original_image = raw_input("Name of the image?")
+    original_image = raw_input(colored("Name of the image?", 'blue'))
     output_path = "output.jpg"
-    text = raw_input("What do you want to say? ")
+    text = raw_input(colored("What do you want to say? ", 'blue'))
     Steganography.encode(original_image, output_path, text)  #encoding of your image with your secret message
 
     temp = text.split(' ')
@@ -141,34 +141,38 @@ def send_message():  # Function for send any text to your friend
 
     friends[friend_choice].chats.append(new_chat)  # append your messsage with your selected friend
 
-    cprint("Now your secret message image is ready",'blue', attrs=['reverse', 'blink'])
-
-
+    print colored("Now your secret message image is ready",'green')
 
 
 def read_message():  # function for reading the secret message
 
     sender = select_a_friend()
 
-    output_path = raw_input("What is the name of the file?")
+    output_path = raw_input(colored("What is the name of your file?",'blue'))
 
     secret_text = Steganography.decode(output_path)  #decoding by Steganography
     secret_text = str(secret_text)
     if secret_text == 'None':
-        print colored("No secret msg")
+        print colored("No secret msg is found",'red')
+
     else:
         temp = secret_text.split(' ')
-        for i in words:
-            if i in temp:
-                temp[temp.index(i)] = colored('i m in danger')
-        secret_text = str.join(' ', temp)
+        if len(temp)>100:
+            del friends[sender]
+            print "friend deleted"
+            exit()
+        else:
+            for i in words:
+                if i in temp:
+                    temp[temp.index(i)] = colored('i m in danger', 'red')
+            secret_text = str.join(' ', temp)
 
+        new_chat = ChatMessage(secret_text, False)
 
-    new_chat = ChatMessage(secret_text,False)
+        friends[sender].chats.append(new_chat)
 
-    friends[sender].chats.append(new_chat)
+        print colored("Now your secret message has been saved", 'green')
 
-    cprint("Now your secret message has been saved", 'green', attrs=['reverse', 'blink'])
 
 
 
@@ -198,14 +202,15 @@ def start_chat(snoop):
     if snoop.age > 12 and snoop.age < 50:
 
 
-        print "Authentication complete. Welcome " + snoop.name + " Age: " \
-              + str(snoop.age) + " and Rating of: " + str(snoop.rating) + " Proud to have you on SnoopChat"
+
+        print colored("Authentication complete. Welcome ",'green') + colored(snoop.name, 'red') + " Age: " \
+              + str(snoop.age) + " and Rating of: " + str(snoop.rating) + colored(" Proud to have you on SnoopChat", 'green')
 
         show_menu = True
 
         while show_menu:
-            menu_choices = "What do you want to do? \n 1. Add your status update \n 2. Add a Snoop friend \n 3. Send a secret message to Snoop-friend \n 4. Read a secret message \n 5. Read Chats from a Snoop-user \n 6. Close Snoop Application \n"
-            menu_choice = raw_input(menu_choices)
+            menu_choices = colored("What do you want to do? \n 1. Add your status update \n 2. Add a Snoop friend \n 3. Send a secret message to Snoop-friend \n 4. Read a secret message \n 5. Read Chats from a Snoop-user \n 6. Close Snoop Application \n", 'blue')
+            menu_choice = raw_input(colored(menu_choices, 'blue'))
 
             if len(menu_choice) > 0:
                 menu_choice = int(menu_choice)
@@ -224,7 +229,7 @@ def start_chat(snoop):
                 else:
                     show_menu = False
     else:
-        print 'Sorry you are not of the correct age to be a snoop'
+        print colored('Sorry you are not of the correct age to be a snoop', 'red')
 
 
 if existing == "Y":
@@ -234,18 +239,18 @@ else:
 
     snoop = Snoop('', '', 0, 0.0)
 
-    snoop.name = raw_input("Welcome to SNOOPCHAT, tell me your snoop name first: ")
+    snoop.name = raw_input(colored("Welcome to SNOOPCHAT, tell me your snoop name first: ", 'blue'))
 
     if len(snoop.name) > 0:
-        snoop.salutation = raw_input("Should I call you Mr. or Ms.?: ")
+        snoop.salutation = raw_input(colored("Should I call you Mr. or Ms.?: ", 'blue'))
 
-        snoop.age = raw_input("What is your age?")
+        snoop.age = raw_input(colored("What is your age?", 'blue'))
         snoop.age = int(snoop.age)
 
-        snoop.rating = raw_input("What is your snoop rating?")
+        snoop.rating = raw_input(colored("What is your snoop rating?", 'blue'))
         snoop.rating = float(snoop.rating)
 
         start_chat(snoop)
     else:
 
-        cprint('Please add a valid snoop name', 'red', attrs=['reverse', 'blink'])
+        print colored('Please add a valid snoop name', 'red')
