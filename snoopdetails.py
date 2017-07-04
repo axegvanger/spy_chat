@@ -21,7 +21,7 @@ class ChatMessage:          #Class consisting of chat with showing date & time
 
 
 
-snoop = Snoop('David', 'Mr.', 24, 4)    #Already existing snoop details
+snoop = Snoop('Sabha', 'Ms.', 18, 4)    #Already existing snoop details
 
 #friends details
 friend_one = Snoop('Clara', 'Ms.', 21, 4.7)
