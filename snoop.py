@@ -2,7 +2,6 @@
 import sys
 from termcolor import colored, cprint
 
-
 #Import Snoopdetails files
 from snoopdetails import snoop, Snoop, ChatMessage, friends
 
@@ -17,11 +16,11 @@ from steganography.steganography import Steganography
 from datetime import datetime
 
 
-STATUS_MESSAGES = ['My first SNOOPCHAT Status', 'SNOOPCHAT is Awesome App', 'I Enjoyed alot on SNOOPCHAT'] #STATUS MESSAGES LIST
+STATUS_MESSAGES = ['My first SNOOPCHAT Status', 'SNOOPCHAT is an Awesome App', 'I Enjoyed alot on SNOOPCHAT'] #STATUS MESSAGES LIST
 
 words = ['SOS','sos','HELP','help', 'SAVE','save']
 
-cprint('Hello, Welcome to SNOOPCHAT!', 'green')
+cprint('Hello, ---Welcome to SNOOPCHAT!---', 'green')
 
 
 question = colored("Do you want to continue as ",'blue') + colored(snoop.salutation,'red') + " " + colored(snoop.name,'red') + " (Y/N)? "
@@ -132,10 +131,12 @@ def send_message():  # Function for send any text to your friend
     text = raw_input(colored("What do you want to say? ", 'blue'))
     Steganography.encode(original_image, output_path, text)  #encoding of your image with your secret message
 
+
+    # split the list containing list of words like sos, help etc
     temp = text.split(' ')
     for i in words:
         if i in temp:
-            temp[temp.index(i)] = colored('i m in danger')
+            temp[temp.index(i)] = colored('DANGERZONE of Snoopchat')
     text = str.join(' ', temp)
     new_chat = ChatMessage(text,True)
 
@@ -229,7 +230,7 @@ def start_chat(snoop):
                 else:
                     show_menu = False
     else:
-        print colored('Sorry you are not of the correct age to be a snoop', 'red')
+        print colored('Sorry you are not of the correct age to be a Snoop-user', 'red')
 
 
 if existing == "Y":
