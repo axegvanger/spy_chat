@@ -1,5 +1,5 @@
 #Import termcolor
-import sys
+#import sys
 from termcolor import colored, cprint
 
 #Import Snoopdetails files
@@ -110,14 +110,19 @@ def select_a_friend():    #Creating a function for selecting a friend of your ch
     for friend in friends:   #for loop for searching your friend
 
         # using placeholders for friend details
-        print '%d. %s %s aged %d with rating %.2f is online' % (item +1, friend.salutation, friend.name, friend.age, friend.rating)
+        #print '%d. %s %s aged %d with rating %.2f is online' % (item +1, colored(friend.salutation,'blue'), colored(friend.name,'blue'), colored(friend.age,'blue'), colored(friend.rating,'blue'))
+        print colored(friend.salutation,'green'),colored(friend.name,'green'),colored(friend.age,'green'),colored("aged",'green'),colored("with rating",'green'),colored(friend.rating,'green')
         item = item + 1
 
     friend_choice = raw_input(colored("Select a friend of your choice",'blue'))
 
-    friend_choice_position = int(friend_choice) - 1
+    if friend_choice.isdigit():
+        friend_choice_position = int(friend_choice) - 1
 
-    return friend_choice_position
+        return friend_choice_position
+    else:
+        print "wrong input"
+        return select_a_friend()
 
 
 
@@ -151,7 +156,7 @@ def read_message():  # function for reading the secret message
 
     output_path = raw_input(colored("What is the name of your file?",'blue'))
 
-    secret_text = Steganography.decode(output_path)  #decoding by Steganography
+    secret_text = Steganography.decode(output_path)  # Decoding Text from the image
     secret_text = str(secret_text)
     if secret_text == 'None':
         print colored("No secret msg is found",'red')
@@ -161,7 +166,7 @@ def read_message():  # function for reading the secret message
         if len(temp)>100:
             del friends[sender]
             print "friend deleted"
-            exit()
+            return "pass"
         else:
             for i in words:
                 if i in temp:
@@ -211,7 +216,7 @@ def start_chat(snoop):
 
         while show_menu:
             menu_choices = colored("What do you want to do? \n 1. Add your status update \n 2. Add a Snoop friend \n 3. Send a secret message to Snoop-friend \n 4. Read a secret message \n 5. Read Chats from a Snoop-user \n 6. Close Snoop Application \n", 'blue')
-            menu_choice = raw_input(colored(menu_choices, 'blue'))
+            menu_choice = raw_input(menu_choices)
 
             if len(menu_choice) > 0:
                 menu_choice = int(menu_choice)
@@ -226,19 +231,19 @@ def start_chat(snoop):
                 elif menu_choice == 4:
                     read_message()
                 elif menu_choice == 5:
-                    read_chat_history()
+                    temp = read_chat_history()
                 else:
                     show_menu = False
     else:
         print colored('Sorry you are not of the correct age to be a Snoop-user', 'red')
 
 
-if existing == "Y":
+if existing.upper() == "Y":
     start_chat(snoop)
     print 'Continue'
 else:
 
-    snoop = Snoop('', '', 0, 0.0)
+    snoop = Snoop('','', 0, 0.0)
 
     snoop.name = raw_input(colored("Welcome to SNOOPCHAT, tell me your snoop name first: ", 'blue'))
 
