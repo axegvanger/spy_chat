@@ -1,5 +1,4 @@
 #Import termcolor
-#import sys
 from termcolor import colored, cprint
 
 #Import Snoopdetails files
@@ -14,7 +13,6 @@ from steganography.steganography import Steganography
 
 #Import DATETIME
 from datetime import datetime
-
 
 STATUS_MESSAGES = ['My first SNOOPCHAT Status', 'SNOOPCHAT is an Awesome App', 'I Enjoyed alot on SNOOPCHAT'] #STATUS MESSAGES LIST
 
@@ -125,8 +123,6 @@ def select_a_friend():    #Creating a function for selecting a friend of your ch
         return select_a_friend()
 
 
-
-
 def send_message():  # Function for send any text to your friend
 
     friend_choice = select_a_friend()
@@ -180,9 +176,6 @@ def read_message():  # function for reading the secret message
         print colored("Now your secret message has been saved", 'green')
 
 
-
-
-
 def read_chat_history():  # Chat history function
 
     read = select_a_friend()
@@ -196,8 +189,6 @@ def read_chat_history():  # Chat history function
         else:
             #print '[%s] %s said: %s' % (chat.time.strftime("%d %B %Y"), friends[read].name, chat.message)
             print 'at', colored(chat.time,'cyan'), "your friend said", chat.message
-
-
 
 
 def start_chat(snoop):
