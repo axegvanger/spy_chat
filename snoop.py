@@ -192,10 +192,10 @@ def read_chat_history():  # Chat history function
     for chat in friends[read].chats:  # using for loop for reading the chats
         if chat.sent_by_me:
             #print '[%s] %s: %s' % (chat.time.strftime("%d %B %Y"), 'You said:', chat.message)
-            print 'at',chat.time,"you said",chat.message
+            print 'at',colored(chat.time,'cyan'),"you said",chat.message
         else:
             #print '[%s] %s said: %s' % (chat.time.strftime("%d %B %Y"), friends[read].name, chat.message)
-            print 'at', chat.time, "your friend said", chat.message
+            print 'at', colored(chat.time,'cyan'), "your friend said", chat.message
 
 
 
