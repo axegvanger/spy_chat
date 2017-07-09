@@ -244,8 +244,19 @@ else:
         snoop.age = raw_input(colored("What is your age?", 'blue'))
         snoop.age = int(snoop.age)
 
-        snoop.rating = raw_input(colored("What is your snoop rating?", 'blue'))
-        snoop.rating = float(snoop.rating)
+        snoop_rating = raw_input(colored("What is your snoop rating?", 'blue'))
+        snoop_rating = float(snoop_rating)
+
+        if snoop_rating > 4.5:
+            print '---Yay you Rock---!'
+        elif snoop_rating > 3.5 and snoop_rating <= 4.5:
+            print '---Whoa Amazing---'
+        elif snoop_rating >= 2.5 and snoop_rating <= 3.5:
+            print '---You can always do better---'
+        else:
+            print '---We can always use somebody to help in the office.---'
+
+
 
         start_chat(snoop)
     else:
