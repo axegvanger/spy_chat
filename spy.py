@@ -1,8 +1,8 @@
 #Import termcolor
 from termcolor import colored, cprint
 
-#Import Snoopdetails files
-from snoopdetails import snoop, Snoop, ChatMessage, friends
+#Import spydetails files
+from spydetails import spy, spy, ChatMessage, friends
 
 
 colored("how r u", 'red')
@@ -14,14 +14,14 @@ from steganography.steganography import Steganography
 #Import DATETIME
 from datetime import datetime
 
-STATUS_MESSAGES = ['My first SNOOPCHAT Status', 'SNOOPCHAT is an Awesome App', 'I Enjoyed alot on SNOOPCHAT'] #STATUS MESSAGES LIST
+STATUS_MESSAGES = ['My first spyCHAT Status', 'spyCHAT is an Awesome App', 'I Enjoyed alot on spyCHAT'] #STATUS MESSAGES LIST
 
 words = ['SOS','sos','HELP','help', 'SAVE','save']
 
-cprint('Hello, ---Welcome to SNOOPCHAT!---', 'green')
+cprint('Hello, ---Welcome to spyCHAT!---', 'green')
 
 
-question = colored("Do you want to continue as ",'blue') + colored(snoop.salutation,'red') + " " + colored(snoop.name,'red') + " (Y/N)? "
+question = colored("Do you want to continue as ",'blue') + colored(spy.salutation,'red') + " " + colored(spy.name,'red') + " (Y/N)? "
 existing = raw_input(question)
 
 
@@ -29,9 +29,9 @@ def add_status():  # Add your status
 
     updated_status_message = None
 
-    if snoop.current_status_message != None:
+    if spy.current_status_message != None:
 
-        print 'Your current status message is %s \n' % (snoop.current_status_message) # Add Your current status
+        print 'Your current status message is %s \n' % (spy.current_status_message) # Add Your current status
     else:
         print colored('You don\'t have any status message currently \n','red')
 
@@ -75,7 +75,7 @@ def add_status():  # Add your status
 
 def add_friend():          #Creating Add friend function
 
-    new_friend = Snoop('','',0,0.0)
+    new_friend = spy('','',0,0.0)
 
     new_friend.name = raw_input(colored("Add your Friend's name: ", 'blue'))   #Ask friend's name
     new_friend.salutation = raw_input(colored("Add your friends's salutaion Mr. or Ms.?: ",'blue'))   #Ask friend's salutation
@@ -88,14 +88,14 @@ def add_friend():          #Creating Add friend function
     new_friend.rating = raw_input(colored("Enter Friend's Rating?", 'blue'))
     new_friend.rating = float(new_friend.rating)
 
-    if len(new_friend.name) > 0 and new_friend.age > 12 and new_friend.rating >= snoop.rating:
+    if len(new_friend.name) > 0 and new_friend.age > 12 and new_friend.rating >= spy.rating:
 
         friends.append(new_friend) # Append new friend details
 
         print colored('Friend is Added!', 'green')    #Friend is being Added
     else:
 
-        print colored('Invalid Details. Snoop can not be added with the details you provided', 'red') #Invalid Information of SNOOP-FRIEND
+        print colored('Invalid Details. spy can not be added with the details you provided', 'red') #Invalid Information of spy-FRIEND
 
 
     return len(friends)   #return length of the function named friends
@@ -137,7 +137,7 @@ def send_message():  # Function for send any text to your friend
     temp = text.split(' ')
     for i in words:
         if i in temp:
-            temp[temp.index(i)] = colored('DANGERZONE of Snoopchat')
+            temp[temp.index(i)] = colored('DANGERZONE of spychat')
     text = str.join(' ', temp)
     new_chat = ChatMessage(text,True)
 
@@ -191,29 +191,29 @@ def read_chat_history():  # Chat history function
             print 'at', colored(chat.time,'cyan'), "your friend said", chat.message
 
 
-def start_chat(snoop):
+def start_chat(spy):
 
-    snoop.name = snoop.salutation + " " + snoop.name
-
-
-    if snoop.age > 12 and snoop.age < 50:
+    spy.name = spy.salutation + " " + spy.name
 
 
+    if spy.age > 12 and spy.age < 50:
 
-        print colored("Authentication complete. Welcome ",'green') + colored(snoop.name, 'red') + " Age: " \
-              + str(snoop.age) + " and Rating of: " + str(snoop.rating) + colored(" Proud to have you on SnoopChat", 'green')
+
+
+        print colored("Authentication complete. Welcome ",'green') + colored(spy.name, 'red') + " Age: " \
+              + str(spy.age) + " and Rating of: " + str(spy.rating) + colored(" Proud to have you on spyChat", 'green')
 
         show_menu = True
 
         while show_menu:
-            menu_choices = colored("What do you want to do? \n 1. Add your status update \n 2. Add a Snoop friend \n 3. Send a secret message to Snoop-friend \n 4. Read a secret message \n 5. Read Chats from a Snoop-user \n 6. Close Snoop Application \n", 'blue')
+            menu_choices = colored("What do you want to do? \n 1. Add your status update \n 2. Add a spy friend \n 3. Send a secret message to spy-friend \n 4. Read a secret message \n 5. Read Chats from a spy-user \n 6. Close spy Application \n", 'blue')
             menu_choice = raw_input(menu_choices)
 
             if len(menu_choice) > 0:
                 menu_choice = int(menu_choice)
 
                 if menu_choice == 1:
-                    snoop.current_status_message = add_status()
+                    spy.current_status_message = add_status()
                 elif menu_choice == 2:
                     number_of_friends = add_friend()
                     print 'You have %d friends' % (number_of_friends)
@@ -226,39 +226,39 @@ def start_chat(snoop):
                 else:
                     show_menu = False
     else:
-        print colored('Sorry you are not of the correct age to be a Snoop-user', 'red')
+        print colored('Sorry you are not of the correct age to be a spy-user', 'red')
 
 
 if existing.upper() == "Y":
-    start_chat(snoop)
+    start_chat(spy)
     print 'Continue'
 else:
 
-    snoop = Snoop('','', 0, 0.0)
+    spy = spy('','', 0, 0.0)
 
-    snoop.name = raw_input(colored("Welcome to SNOOPCHAT, tell me your snoop name first: ", 'blue'))
+    spy.name = raw_input(colored("Welcome to spyCHAT, tell me your spy name first: ", 'blue'))
 
-    if len(snoop.name) > 0:
-        snoop.salutation = raw_input(colored("Should I call you Mr. or Ms.?: ", 'blue'))
+    if len(spy.name) > 0:
+        spy.salutation = raw_input(colored("Should I call you Mr. or Ms.?: ", 'blue'))
 
-        snoop.age = raw_input(colored("What is your age?", 'blue'))
-        snoop.age = int(snoop.age)
+        spy.age = raw_input(colored("What is your age?", 'blue'))
+        spy.age = int(spy.age)
 
-        snoop_rating = raw_input(colored("What is your snoop rating?", 'blue'))
-        snoop_rating = float(snoop_rating)
+        spy_rating = raw_input(colored("What is your spy rating?", 'blue'))
+        spy_rating = float(spy_rating)
 
-        if snoop_rating > 4.5:
+        if spy_rating > 4.5:
             print '---Yay you Rock---!'
-        elif snoop_rating > 3.5 and snoop_rating <= 4.5:
+        elif spy_rating > 3.5 and spy_rating <= 4.5:
             print '---Whoa Amazing---'
-        elif snoop_rating >= 2.5 and snoop_rating <= 3.5:
+        elif spy_rating >= 2.5 and spy_rating <= 3.5:
             print '---You can always do better---'
         else:
             print '---We can always use somebody to help in the office.---'
 
 
 
-        start_chat(snoop)
+        start_chat(spy)
     else:
 
-        print colored('Please add a valid snoop name', 'red')
+        print colored('Please add a valid spy name', 'red')
